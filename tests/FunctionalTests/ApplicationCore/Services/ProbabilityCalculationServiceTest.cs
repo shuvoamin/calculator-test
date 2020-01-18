@@ -155,5 +155,50 @@ namespace FunctionalTests.ApplicationCore.Services
 
             // Assert
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void ShouldThrowExceptionForAllInvalidInputs()
+        {
+            // Arrange
+            double left = -0.1;
+            double right = 1.1;
+            var logic = (ProbabilityCalculationLogic)0;
+
+            // Act
+            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+
+            // Assert
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void ShouldThrowExceptionForZeroAsInputValues_WithCombineLogic()
+        {
+            // Arrange
+            double left = 0;
+            double right = 0;
+            var logic = (ProbabilityCalculationLogic)1;
+
+            // Act
+            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+
+            // Assert
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void ShouldThrowExceptionForZeroAsInputValues_WithEitherLogic()
+        {
+            // Arrange
+            double left = 0;
+            double right = 0;
+            var logic = (ProbabilityCalculationLogic)2;
+
+            // Act
+            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+
+            // Assert
+        }
     }
 }

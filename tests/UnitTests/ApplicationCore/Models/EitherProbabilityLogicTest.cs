@@ -9,12 +9,12 @@ namespace UnitTests.ApplicationCore.Models
         [TestMethod]
         public void CangetCorrectProbabilityCalculationResult_Value1()
         {
-            // Act
+            // Arrange
             double left = 1;
             double right = 1;
             var combineLogicObj = new EitherProbabilityLogic();
 
-            // Arrange
+            // Act
             var result = combineLogicObj.GetCalculationResult(left, right);
 
             // Assert
@@ -25,12 +25,12 @@ namespace UnitTests.ApplicationCore.Models
         [TestMethod]
         public void CangetCorrectProbabilityCalculationResult_Value2()
         {
-            // Act
+            // Arrange
             double left = 0.5;
             double right = 2;
             var combineLogicObj = new EitherProbabilityLogic();
 
-            // Arrange
+            // Act
             var result = combineLogicObj.GetCalculationResult(left, right);
 
             // Assert

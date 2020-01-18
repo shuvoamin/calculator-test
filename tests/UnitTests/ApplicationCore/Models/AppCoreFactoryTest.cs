@@ -17,7 +17,7 @@ namespace UnitTests.ApplicationCore.Models
             // Act
             var result = AppCoreFactory.CreateCalculatinoResult(inputResult);
 
-            // Arrange
+            // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(result.Result, inputResult);
         }
@@ -32,7 +32,7 @@ namespace UnitTests.ApplicationCore.Models
             // Act
             var result = AppCoreFactory.CreateCalculationLogic(inputLogic);
 
-            // Arrange
+            // Assert
         }
 
         [TestMethod]
@@ -45,7 +45,7 @@ namespace UnitTests.ApplicationCore.Models
             // Act
             var result = AppCoreFactory.CreateCalculationLogic(inputLogic);
 
-            // Arrange
+            // Assert
         }
 
         [TestMethod]
@@ -57,7 +57,7 @@ namespace UnitTests.ApplicationCore.Models
             // Act
             var result = AppCoreFactory.CreateCalculationLogic(calculationLogic);
 
-            // Arrange
+            // Assert
             Assert.IsNotNull(result);
             Assert.IsTrue(result.GetType() == typeof(CombineWithProbabilityLogic));
         }
@@ -71,7 +71,7 @@ namespace UnitTests.ApplicationCore.Models
             // Act
             var result = AppCoreFactory.CreateCalculationLogic(calculationLogic);
 
-            // Arrange
+            // Assert
             Assert.IsNotNull(result);
             Assert.IsTrue(result.GetType() == typeof(EitherProbabilityLogic));
         }

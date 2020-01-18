@@ -7,14 +7,14 @@ namespace UnitTests.ApplicationCore.Models
     public class CombineWithProbabilityLogicTest
     {
         [TestMethod]
-        public void CangetCorrectProbabilityCalculationResult_Value1()
+        public void CanGetCorrectProbabilityCalculationResult_Value1()
         {
-            // Act
+            // Arrange
             double left = 1;
             double right = 1;
             var combineLogicObj = new CombineWithProbabilityLogic();
 
-            // Arrange
+            // Act
             var result = combineLogicObj.GetCalculationResult(left, right);
 
             // Assert
@@ -23,14 +23,14 @@ namespace UnitTests.ApplicationCore.Models
         }
 
         [TestMethod]
-        public void CangetCorrectProbabilityCalculationResult_Value2()
+        public void CanGetCorrectProbabilityCalculationResult_Value2()
         {
-            // Act
+            // Arrange
             double left = 10;
             double right = 5;
             var combineLogicObj = new CombineWithProbabilityLogic();
 
-            // Arrange
+            // Act
             var result = combineLogicObj.GetCalculationResult(left, right);
 
             // Assert

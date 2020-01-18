@@ -41,6 +41,8 @@ namespace ApplicationCore.Services
                 );
 
                 // TODO : tidy up a little bit more
+                // for testability purpose we need to add the whole logging object
+                // as part of ICalculationResult
                 _logger.LogInformation(
                     $"{c_ResultLogginMessage} " +
                     $"timeStamp = {DateTime.Now}, " +
@@ -62,8 +64,8 @@ namespace ApplicationCore.Services
                 || value == 0);
 
             bool isValid = (leftInput + rightInput) != 0
-                      && isNumberValid(leftInput)
-                      && isNumberValid(rightInput);
+                           && isNumberValid(leftInput)
+                           && isNumberValid(rightInput);
 
             return isValid;
         }

@@ -23,8 +23,11 @@ namespace Web.API
         {
             services.AddLogging(lb =>
             {
+                // logging all messages with severity warning or above to 'warn+err.log' (see appsettings.json for configuration settings)
                 lb.AddConfiguration(Configuration.GetSection("Logging"));
                 lb.AddFile(o => o.RootPath = AppContext.BaseDirectory);
+
+                // specific file creation for logging info (see appsettings.json for more details)
                 lb.AddFile<InfoFileLoggerProvider>(configure: o => o.RootPath = AppContext.BaseDirectory);
             });
 
