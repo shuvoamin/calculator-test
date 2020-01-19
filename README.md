@@ -13,3 +13,23 @@ Open Terminal or Command Prompt and go to the root folder of the solution, then
 `dotnet run`
 
 **Application's Info**
+
+The app has API endpoint as following:-
+
+`/api/calculations/leftInput/rightInput/logicCode`
+
+- leftInput type is `double` (e.g. 0.5)
+- rightInput type is `double` (e.g. 0.5)
+- logicCode type is `int` (e.g. 1)
+  - Acceptable logicCode
+    1. Id 1 => P(A) * P(B)
+    2. Id 2 => (P(A) + P(B)) - (P(A) * P(B))
+
+API Retun:-
+
+- On successful calculation based on above params it returns calculation result as string with 200 HTTP code
+- If any validation or system exception occur it returns 500 HTTP code
+
+Note:-
+
+- Both left and right input cannot be zero (e.g. 0) or negative value (e.g. -1)
