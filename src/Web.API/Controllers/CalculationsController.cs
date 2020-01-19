@@ -22,7 +22,21 @@ namespace Web.API.Controllers
             _probabilityCalculationService = probabilityCalculationService;
         }
 
-        // GET api/calculations/0.5/0.5/1
+        /// <summary>
+        /// Calculates a probability.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// /api/calculations/0.5/0.5/1
+        ///
+        /// </remarks>
+        /// <param name="leftInput">Value for P(A)</param>
+        /// <param name="rightInput">Value for P(B)</param>
+        /// <param name="logicCode">Value for which probability logic to use</param>
+        /// <returns>Probability calculation result</returns>
+        /// <response code="200">Returns succesfull calculation result</response>
+        /// <response code="500">If any validation or system exception occurs</response> 
         [HttpGet("{leftInput}/{rightInput}/{logicCode}")]
         public IActionResult Get(double leftInput, double rightInput, int logicCode)
         {
