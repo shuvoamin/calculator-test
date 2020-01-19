@@ -27,8 +27,17 @@ The app has API endpoint as following:-
 
 API Retun:-
 
-- On successful calculation based on above params it returns calculation result as string with 200 HTTP code
-- If any validation or system exception occur it returns 500 HTTP code
+- On successful calculation based on above params it returns calculation result as json with 200 HTTP status code
+
+    Example result
+
+    `{`\
+    &nbsp;&nbsp;&nbsp;&nbsp;`"calculationResult": "0.25"`\
+    `}`
+    
+
+
+- If any validation or system exception occur it returns 500 HTTP status code
 
 Note:-
 

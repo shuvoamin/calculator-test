@@ -2,6 +2,7 @@
 using ApplicationCore.Enums;
 using ApplicationCore.Interfaces;
 using Infrastructure.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.API.Controllers
@@ -47,22 +48,22 @@ namespace Web.API.Controllers
                 result = _probabilityCalculationService.GetCalculationResult(
                     leftInput,
                     rightInput,
-                    (ProbabilityCalculationLogic) logicCode
+                    (ProbabilityCalculationLogic)logicCode
                 ).Result.ToString();
             }
             catch (Exception ex)
             {
                 _logger.LogWarning(
-                    ex.StackTrace.ToString(), 
-                    leftInput, 
-                    rightInput, 
+                    ex.StackTrace.ToString(),
+                    leftInput,
+                    rightInput,
                     logicCode
                 );
 
-                return StatusCode(500);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
-            return Ok(result);
+            return Ok(new { calculationResult = result });
         }
     }
 }
