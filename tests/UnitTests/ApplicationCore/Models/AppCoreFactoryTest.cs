@@ -23,6 +23,37 @@ namespace UnitTests.ApplicationCore.Models
         }
 
         [TestMethod]
+        public void CanGetCalculationLoggingObj()
+        {
+            // Arrange
+            string message = "This is a test message for logging obj";
+            double leftInput = 0.5;
+            double rightInput = 0.5;
+            int logicCode = 1;
+            double result = 0.25;
+            DateTime timeStamp = DateTime.Now;
+
+            // Act
+            var actualCalcresult = AppCoreFactory.GetCalculationLoggingObj(
+                message,
+                leftInput,
+                rightInput,
+                logicCode,
+                result,
+                timeStamp
+            );
+
+            // Assert
+            Assert.IsNotNull(actualCalcresult);
+            Assert.AreEqual(message, actualCalcresult.Message);
+            Assert.AreEqual(leftInput, actualCalcresult.LeftInput);
+            Assert.AreEqual(rightInput, actualCalcresult.RightInput);
+            Assert.AreEqual(logicCode, actualCalcresult.LogicId);
+            Assert.AreEqual(result, actualCalcresult.Result);
+            Assert.AreEqual(timeStamp, actualCalcresult.TimeStamp);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CanGetCalculationLogicExceptionForInvalidParam_DefaultEnum()
         {

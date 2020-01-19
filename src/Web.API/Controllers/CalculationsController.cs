@@ -52,7 +52,12 @@ namespace Web.API.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex.StackTrace.ToString());
+                _logger.LogWarning(
+                    ex.StackTrace.ToString(), 
+                    leftInput, 
+                    rightInput, 
+                    logicCode
+                );
 
                 return StatusCode(500);
             }

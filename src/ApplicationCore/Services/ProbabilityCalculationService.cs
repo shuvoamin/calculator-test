@@ -40,16 +40,23 @@ namespace ApplicationCore.Services
                     probabilityLogic.GetCalculationResult(leftInput, rightInput)
                 );
 
-                // TODO : tidy up a little bit more
-                // for testability purpose we need to add the whole logging object
-                // as part of ICalculationResult
+                result.LoggingObject = AppCoreFactory.GetCalculationLoggingObj(
+                    c_ResultLogginMessage,
+                    leftInput,
+                    rightInput,
+                    (int)calculationLogic,
+                    result.Result,
+                    // TODO : fix testability technical debt
+                    DateTime.Now
+                );
+
                 _logger.LogInformation(
-                    $"{c_ResultLogginMessage} " +
-                    $"timeStamp = {DateTime.Now}, " +
-                    $"leftInput = {leftInput}, " +
-                    $"rightInput = {rightInput}, " +
-                    $"calculationLogic = {calculationLogic.ToString()}, " +
-                    $"result = {result.Result}"
+                    $"{result.LoggingObject.Message} " +
+                    $"timeStamp = {result.LoggingObject.TimeStamp}, " +
+                    $"leftInput = {result.LoggingObject.LeftInput}, " +
+                    $"rightInput = {result.LoggingObject.RightInput}, " +
+                    $"calculationLogic = {result.LoggingObject.LogicId}, " +
+                    $"result = {result.LoggingObject.Result}"
                  );
             }
 

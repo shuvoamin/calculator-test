@@ -97,6 +97,115 @@ namespace FunctionalTests.ApplicationCore.Services
         }
 
         [TestMethod]
+        public void ShouldReturnLoggingObjectForSuccessfullCalculation()
+        {
+            // Arrange
+            double left = 0.5;
+            double right = 0.5;
+            var logic = ProbabilityCalculationLogic.CombineWith;
+
+            // Act
+            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+
+            // Assert
+            Assert.IsNotNull(result.LoggingObject);
+        }
+
+        [TestMethod]
+        public void ValidateLoggingObjectForSuccessfullCalculation_CombineWithLogic()
+        {
+            // Arrange
+            double left = 0.5;
+            double right = 0.5;
+            var logic = ProbabilityCalculationLogic.CombineWith;
+
+            // Act
+            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+
+            // Assert
+            Assert.IsNotNull(result.LoggingObject);
+            Assert.IsNotNull(result.LoggingObject.Message);
+            Assert.AreEqual(left, result.LoggingObject.LeftInput);
+            Assert.AreEqual(right, result.LoggingObject.RightInput);
+            Assert.AreEqual((int)logic, result.LoggingObject.LogicId);
+            Assert.AreEqual(result.LoggingObject.Result, 0.25);
+            Assert.IsTrue(result.LoggingObject.TimeStamp != default(DateTime));
+        }
+
+        [TestMethod]
+        public void ValidateLoggingMechanismForSuccessfullCalculation_CombineWithLogic()
+        {
+            // Arrange
+            double left = 0.5;
+            double right = 0.5;
+            var logic = ProbabilityCalculationLogic.CombineWith;
+            string testingLogMessage = string.Empty;
+            _loggerMock.Setup(l => l.LogInformation(It.IsAny<string>(), It.IsAny<object[]>()));
+
+            // Act
+            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+
+            // Assert
+            Assert.IsNotNull(result.LoggingObject);
+            Assert.IsNotNull(result.LoggingObject.Message);
+            Assert.AreEqual(left, result.LoggingObject.LeftInput);
+            Assert.AreEqual(right, result.LoggingObject.RightInput);
+            Assert.AreEqual((int)logic, result.LoggingObject.LogicId);
+            Assert.AreEqual(result.LoggingObject.Result, 0.25);
+            Assert.IsTrue(result.LoggingObject.TimeStamp != default(DateTime));
+
+            // check logging occuring at least once
+            _loggerMock.Verify(r => r.LogInformation(It.IsAny<string>(), It.IsAny<object[]>()), Times.AtLeastOnce);
+        }
+
+        [TestMethod]
+        public void ValidateLoggingMechanismForSuccessfullCalculation_EitherLogic()
+        {
+            // Arrange
+            double left = 0.5;
+            double right = 0.5;
+            var logic = ProbabilityCalculationLogic.Either;
+            string testingLogMessage = string.Empty;
+            _loggerMock.Setup(l => l.LogInformation(It.IsAny<string>(), It.IsAny<object[]>()));
+
+            // Act
+            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+
+            // Assert
+            Assert.IsNotNull(result.LoggingObject);
+            Assert.IsNotNull(result.LoggingObject.Message);
+            Assert.AreEqual(left, result.LoggingObject.LeftInput);
+            Assert.AreEqual(right, result.LoggingObject.RightInput);
+            Assert.AreEqual((int)logic, result.LoggingObject.LogicId);
+            Assert.AreEqual(result.LoggingObject.Result, 0.75);
+            Assert.IsTrue(result.LoggingObject.TimeStamp != default(DateTime));
+
+            // check logging occuring at least once
+            _loggerMock.Verify(r => r.LogInformation(It.IsAny<string>(), It.IsAny<object[]>()), Times.AtLeastOnce);
+        }
+
+        [TestMethod]
+        public void ValidateLoggingObjectForSuccessfullCalculation_EitherLogic()
+        {
+            // Arrange
+            double left = 0.5;
+            double right = 0.5;
+            var logic = ProbabilityCalculationLogic.Either;
+
+            // Act
+            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+
+            // Assert
+            Assert.IsNotNull(result.LoggingObject);
+            Assert.IsNotNull(result.LoggingObject.Message);
+            Assert.AreEqual(left, result.LoggingObject.LeftInput);
+            Assert.AreEqual(right, result.LoggingObject.RightInput);
+            Assert.AreEqual((int)logic, result.LoggingObject.LogicId);
+            Assert.AreEqual(result.LoggingObject.Result, 0.75);
+            Assert.IsTrue(result.LoggingObject.TimeStamp != default(DateTime));
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void ShouldThrowExceptionForLeftInvalidInput()
         {

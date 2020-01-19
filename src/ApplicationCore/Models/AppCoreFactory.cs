@@ -8,9 +8,31 @@ namespace ApplicationCore.Models
     {
         public static ICalculationResult CreateCalculatinoResult(double result)
         {
-            ICalculationResult model = new CalculationResult()
+            ICalculationResult model = new CalculationResult
             {
                 Result = result
+            };
+
+            return model;
+        }
+
+        public static ICalculationLoggingObject GetCalculationLoggingObj(
+            string message,
+            double leftInput,
+            double rightInput,
+            int logicCode,
+            double result,
+            DateTime timeStamp
+        )
+        {
+            ICalculationLoggingObject model = new CalculationLoggingObject
+            {
+                Message = message,
+                LeftInput = leftInput,
+                RightInput = rightInput,
+                LogicId = logicCode,
+                Result = result,
+                TimeStamp = timeStamp
             };
 
             return model;
