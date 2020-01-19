@@ -48,7 +48,7 @@ namespace Web.API.Controllers
                 result = _probabilityCalculationService.GetCalculationResult(
                     leftInput,
                     rightInput,
-                    (ProbabilityCalculationLogic)logicCode
+                    logicCode
                 ).Result.ToString();
             }
             catch (Exception ex)

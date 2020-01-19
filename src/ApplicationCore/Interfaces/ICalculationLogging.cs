@@ -2,7 +2,7 @@
 
 namespace ApplicationCore.Interfaces
 {
-    public interface ICalculationLoggingObject
+    public interface ICalculationLogging
     {
         string Message { get; set; }
         double LeftInput { get; set; }

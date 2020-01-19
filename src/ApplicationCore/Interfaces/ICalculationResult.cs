@@ -5,6 +5,6 @@ namespace ApplicationCore.Interfaces
     public interface ICalculationResult
     {
         double Result { get; set; }
-        ICalculationLoggingObject LoggingObject { get; set; }
+        ICalculationLogging CalculationLogging { get; set; }
     }
 }

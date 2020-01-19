@@ -3,7 +3,7 @@ using System;
 
 namespace ApplicationCore.Models
 {
-    public class CalculationLoggingObject : ICalculationLoggingObject
+    public class CalculationLogging : ICalculationLogging
     {
         public string Message { get; set; }
         public double LeftInput { get; set; }

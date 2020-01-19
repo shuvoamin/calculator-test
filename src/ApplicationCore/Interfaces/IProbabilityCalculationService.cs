@@ -7,7 +7,7 @@ namespace ApplicationCore.Interfaces
         ICalculationResult GetCalculationResult(
             double leftInput,
             double rightInput,
-            ProbabilityCalculationLogic calculationLogic
+            int logicCode
         );
     }
 }

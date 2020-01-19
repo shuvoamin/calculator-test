@@ -20,18 +20,18 @@ namespace ApplicationCore.Services
         public ICalculationResult GetCalculationResult(
             double leftInput, 
             double rightInput, 
-            ProbabilityCalculationLogic calculationLogic
+            int logicCode
         )
         {
             if (!IsInputsValidForProbabilityCalculation(leftInput, rightInput))
                 throw new InvalidOperationException(c_InvalidInputErrMsg);
 
-            if (calculationLogic == default(ProbabilityCalculationLogic))
-                throw new InvalidOperationException(nameof(calculationLogic));
+            if (logicCode == default(int))
+                throw new InvalidOperationException(nameof(logicCode));
 
             ICalculationResult result = null;
             IProbabilityLogic probabilityLogic = 
-                AppCoreFactory.CreateCalculationLogic(calculationLogic);
+                AppCoreFactory.CreateCalculationLogic(logicCode);
 
             if (probabilityLogic != null)
             {
@@ -40,23 +40,23 @@ namespace ApplicationCore.Services
                     probabilityLogic.GetCalculationResult(leftInput, rightInput)
                 );
 
-                result.LoggingObject = AppCoreFactory.GetCalculationLoggingObj(
+                result.CalculationLogging = AppCoreFactory.GetCalculationLoggingObj(
                     c_ResultLogginMessage,
                     leftInput,
                     rightInput,
-                    (int)calculationLogic,
+                    (int)logicCode,
                     result.Result,
                     // TODO : fix testability technical debt
                     DateTime.Now
                 );
 
                 _logger.LogInformation(
-                    $"{result.LoggingObject.Message} " +
-                    $"timeStamp = {result.LoggingObject.TimeStamp}, " +
-                    $"leftInput = {result.LoggingObject.LeftInput}, " +
-                    $"rightInput = {result.LoggingObject.RightInput}, " +
-                    $"calculationLogic = {result.LoggingObject.LogicId}, " +
-                    $"result = {result.LoggingObject.Result}"
+                    $"{result.CalculationLogging.Message} " +
+                    $"timeStamp = {result.CalculationLogging.TimeStamp}, " +
+                    $"leftInput = {result.CalculationLogging.LeftInput}, " +
+                    $"rightInput = {result.CalculationLogging.RightInput}, " +
+                    $"calculationLogic = {result.CalculationLogging.LogicId}, " +
+                    $"result = {result.CalculationLogging.Result}"
                  );
             }
 
@@ -68,7 +68,7 @@ namespace ApplicationCore.Services
             bool isNumberValid(double value) =>
                 !(value < 0)
                 && (value % 0.5 == 0
-                || value == 0);
+                    || value == 0);
 
             bool isValid = (leftInput + rightInput) != 0
                            && isNumberValid(leftInput)

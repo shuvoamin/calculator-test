@@ -16,7 +16,7 @@ namespace ApplicationCore.Models
             return model;
         }
 
-        public static ICalculationLoggingObject GetCalculationLoggingObj(
+        public static ICalculationLogging GetCalculationLoggingObj(
             string message,
             double leftInput,
             double rightInput,
@@ -25,7 +25,7 @@ namespace ApplicationCore.Models
             DateTime timeStamp
         )
         {
-            ICalculationLoggingObject model = new CalculationLoggingObject
+            ICalculationLogging model = new CalculationLogging
             {
                 Message = message,
                 LeftInput = leftInput,
@@ -39,10 +39,12 @@ namespace ApplicationCore.Models
         }
 
         public static IProbabilityLogic CreateCalculationLogic(
-            ProbabilityCalculationLogic calculationLogic
+            int logicCode
         )
         {
             IProbabilityLogic probabilityLogic = null;
+
+            ProbabilityCalculationLogic calculationLogic = (ProbabilityCalculationLogic)logicCode;
 
             switch (calculationLogic)
             {

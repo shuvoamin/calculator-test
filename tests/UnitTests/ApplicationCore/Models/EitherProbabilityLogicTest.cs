@@ -12,10 +12,10 @@ namespace UnitTests.ApplicationCore.Models
             // Arrange
             double left = 1;
             double right = 1;
-            var combineLogicObj = new EitherProbabilityLogic();
+            EitherProbabilityLogic combineLogicObj = new EitherProbabilityLogic();
 
             // Act
-            var result = combineLogicObj.GetCalculationResult(left, right);
+            double result = combineLogicObj.GetCalculationResult(left, right);
 
             // Assert
             Assert.IsNotNull(result);
@@ -28,10 +28,10 @@ namespace UnitTests.ApplicationCore.Models
             // Arrange
             double left = 0.5;
             double right = 2;
-            var combineLogicObj = new EitherProbabilityLogic();
+            EitherProbabilityLogic combineLogicObj = new EitherProbabilityLogic();
 
             // Act
-            var result = combineLogicObj.GetCalculationResult(left, right);
+            double result = combineLogicObj.GetCalculationResult(left, right);
 
             // Assert
             Assert.IsNotNull(result);

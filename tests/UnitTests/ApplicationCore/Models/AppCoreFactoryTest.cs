@@ -2,6 +2,7 @@
 using ApplicationCore.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using ApplicationCore.Interfaces;
 
 namespace UnitTests.ApplicationCore.Models
 {
@@ -15,7 +16,7 @@ namespace UnitTests.ApplicationCore.Models
             double inputResult = 1;
 
             // Act
-            var result = AppCoreFactory.CreateCalculatinoResult(inputResult);
+            ICalculationResult result = AppCoreFactory.CreateCalculatinoResult(inputResult);
 
             // Assert
             Assert.IsNotNull(result);
@@ -34,7 +35,7 @@ namespace UnitTests.ApplicationCore.Models
             DateTime timeStamp = DateTime.Now;
 
             // Act
-            var actualCalcresult = AppCoreFactory.GetCalculationLoggingObj(
+            ICalculationLogging actualCalcresult = AppCoreFactory.GetCalculationLoggingObj(
                 message,
                 leftInput,
                 rightInput,
@@ -58,10 +59,10 @@ namespace UnitTests.ApplicationCore.Models
         public void CanGetCalculationLogicExceptionForInvalidParam_DefaultEnum()
         {
             // Arrange
-            var inputLogic = (ProbabilityCalculationLogic)0;
+            int inputLogic = 0;
 
             // Act
-            var result = AppCoreFactory.CreateCalculationLogic(inputLogic);
+            IProbabilityLogic result = AppCoreFactory.CreateCalculationLogic(inputLogic);
 
             // Assert
         }
@@ -71,10 +72,10 @@ namespace UnitTests.ApplicationCore.Models
         public void CanGetCalculationLogicExceptionForInvalidParam_OutOfRange()
         {
             // Arrange
-            var inputLogic = (ProbabilityCalculationLogic)3;
+            int inputLogic = 3;
 
             // Act
-            var result = AppCoreFactory.CreateCalculationLogic(inputLogic);
+            IProbabilityLogic result = AppCoreFactory.CreateCalculationLogic(inputLogic);
 
             // Assert
         }
@@ -83,10 +84,10 @@ namespace UnitTests.ApplicationCore.Models
         public void CanGetCombineCalculationLogic()
         {
             // Arrange
-            var calculationLogic = ProbabilityCalculationLogic.CombineWith;
+            int calculationLogic = 1;
 
             // Act
-            var result = AppCoreFactory.CreateCalculationLogic(calculationLogic);
+            IProbabilityLogic result = AppCoreFactory.CreateCalculationLogic(calculationLogic);
 
             // Assert
             Assert.IsNotNull(result);
@@ -97,10 +98,10 @@ namespace UnitTests.ApplicationCore.Models
         public void CanGetEitherCalculationLogic()
         {
             // Arrange
-            var calculationLogic = ProbabilityCalculationLogic.Either;
+            int calculationLogic = 2;
 
             // Act
-            var result = AppCoreFactory.CreateCalculationLogic(calculationLogic);
+            IProbabilityLogic result = AppCoreFactory.CreateCalculationLogic(calculationLogic);
 
             // Assert
             Assert.IsNotNull(result);

@@ -1,5 +1,4 @@
-﻿using ApplicationCore.Enums;
-using ApplicationCore.Interfaces;
+﻿using ApplicationCore.Interfaces;
 using ApplicationCore.Services;
 using Infrastructure.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -27,10 +26,10 @@ namespace FunctionalTests.ApplicationCore.Services
             // Arrange
             double left = 1;
             double right = 1;
-            var logic = ProbabilityCalculationLogic.CombineWith;
+            int logic = 1;
 
             // Act
-            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+            ICalculationResult result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
 
             // Assert
             Assert.IsTrue(result.Result == 1);
@@ -42,10 +41,10 @@ namespace FunctionalTests.ApplicationCore.Services
             // Arrange
             double left = 1;
             double right = 1;
-            var logic = ProbabilityCalculationLogic.Either;
+            int logic = 2;
 
             // Act
-            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+            ICalculationResult result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
 
             // Assert
             Assert.IsTrue(result.Result == 1);
@@ -57,10 +56,10 @@ namespace FunctionalTests.ApplicationCore.Services
             // Arrange
             double left = 0.5;
             double right = 0.5;
-            var logic = ProbabilityCalculationLogic.Either;
+            int logic = 2;
 
             // Act
-            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+            ICalculationResult result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
 
             // Assert
             Assert.IsTrue(result.Result == 0.75);
@@ -72,10 +71,10 @@ namespace FunctionalTests.ApplicationCore.Services
             // Arrange
             double left = 0.5;
             double right = 0.5;
-            var logic = ProbabilityCalculationLogic.CombineWith;
+            int logic = 1;
 
             // Act
-            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+            ICalculationResult result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
 
             // Assert
             Assert.IsTrue(result.Result == 0.25);
@@ -87,10 +86,10 @@ namespace FunctionalTests.ApplicationCore.Services
             // Arrange
             double left = 1;
             double right = 2;
-            var logic = ProbabilityCalculationLogic.CombineWith;
+            int logic = 1;
 
             // Act
-            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+            ICalculationResult result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
 
             // Assert
             Assert.IsTrue(result.Result != 0);
@@ -102,13 +101,13 @@ namespace FunctionalTests.ApplicationCore.Services
             // Arrange
             double left = 0.5;
             double right = 0.5;
-            var logic = ProbabilityCalculationLogic.CombineWith;
+            int logic = 1;
 
             // Act
-            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+            ICalculationResult result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
 
             // Assert
-            Assert.IsNotNull(result.LoggingObject);
+            Assert.IsNotNull(result.CalculationLogging);
         }
 
         [TestMethod]
@@ -117,19 +116,19 @@ namespace FunctionalTests.ApplicationCore.Services
             // Arrange
             double left = 0.5;
             double right = 0.5;
-            var logic = ProbabilityCalculationLogic.CombineWith;
+            int logic = 1;
 
             // Act
-            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+            ICalculationResult result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
 
             // Assert
-            Assert.IsNotNull(result.LoggingObject);
-            Assert.IsNotNull(result.LoggingObject.Message);
-            Assert.AreEqual(left, result.LoggingObject.LeftInput);
-            Assert.AreEqual(right, result.LoggingObject.RightInput);
-            Assert.AreEqual((int)logic, result.LoggingObject.LogicId);
-            Assert.AreEqual(result.LoggingObject.Result, 0.25);
-            Assert.IsTrue(result.LoggingObject.TimeStamp != default(DateTime));
+            Assert.IsNotNull(result.CalculationLogging);
+            Assert.IsNotNull(result.CalculationLogging.Message);
+            Assert.AreEqual(left, result.CalculationLogging.LeftInput);
+            Assert.AreEqual(right, result.CalculationLogging.RightInput);
+            Assert.AreEqual((int)logic, result.CalculationLogging.LogicId);
+            Assert.AreEqual(result.CalculationLogging.Result, 0.25);
+            Assert.IsTrue(result.CalculationLogging.TimeStamp != default(DateTime));
         }
 
         [TestMethod]
@@ -138,21 +137,21 @@ namespace FunctionalTests.ApplicationCore.Services
             // Arrange
             double left = 0.5;
             double right = 0.5;
-            var logic = ProbabilityCalculationLogic.CombineWith;
+            int logic = 1;
             string testingLogMessage = string.Empty;
             _loggerMock.Setup(l => l.LogInformation(It.IsAny<string>(), It.IsAny<object[]>()));
 
             // Act
-            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+            ICalculationResult result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
 
             // Assert
-            Assert.IsNotNull(result.LoggingObject);
-            Assert.IsNotNull(result.LoggingObject.Message);
-            Assert.AreEqual(left, result.LoggingObject.LeftInput);
-            Assert.AreEqual(right, result.LoggingObject.RightInput);
-            Assert.AreEqual((int)logic, result.LoggingObject.LogicId);
-            Assert.AreEqual(result.LoggingObject.Result, 0.25);
-            Assert.IsTrue(result.LoggingObject.TimeStamp != default(DateTime));
+            Assert.IsNotNull(result.CalculationLogging);
+            Assert.IsNotNull(result.CalculationLogging.Message);
+            Assert.AreEqual(left, result.CalculationLogging.LeftInput);
+            Assert.AreEqual(right, result.CalculationLogging.RightInput);
+            Assert.AreEqual((int)logic, result.CalculationLogging.LogicId);
+            Assert.AreEqual(result.CalculationLogging.Result, 0.25);
+            Assert.IsTrue(result.CalculationLogging.TimeStamp != default(DateTime));
 
             // check logging occuring at least once
             _loggerMock.Verify(r => r.LogInformation(It.IsAny<string>(), It.IsAny<object[]>()), Times.AtLeastOnce);
@@ -164,21 +163,21 @@ namespace FunctionalTests.ApplicationCore.Services
             // Arrange
             double left = 0.5;
             double right = 0.5;
-            var logic = ProbabilityCalculationLogic.Either;
+            int logic = 2;
             string testingLogMessage = string.Empty;
             _loggerMock.Setup(l => l.LogInformation(It.IsAny<string>(), It.IsAny<object[]>()));
 
             // Act
-            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+            ICalculationResult result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
 
             // Assert
-            Assert.IsNotNull(result.LoggingObject);
-            Assert.IsNotNull(result.LoggingObject.Message);
-            Assert.AreEqual(left, result.LoggingObject.LeftInput);
-            Assert.AreEqual(right, result.LoggingObject.RightInput);
-            Assert.AreEqual((int)logic, result.LoggingObject.LogicId);
-            Assert.AreEqual(result.LoggingObject.Result, 0.75);
-            Assert.IsTrue(result.LoggingObject.TimeStamp != default(DateTime));
+            Assert.IsNotNull(result.CalculationLogging);
+            Assert.IsNotNull(result.CalculationLogging.Message);
+            Assert.AreEqual(left, result.CalculationLogging.LeftInput);
+            Assert.AreEqual(right, result.CalculationLogging.RightInput);
+            Assert.AreEqual((int)logic, result.CalculationLogging.LogicId);
+            Assert.AreEqual(result.CalculationLogging.Result, 0.75);
+            Assert.IsTrue(result.CalculationLogging.TimeStamp != default(DateTime));
 
             // check logging occuring at least once
             _loggerMock.Verify(r => r.LogInformation(It.IsAny<string>(), It.IsAny<object[]>()), Times.AtLeastOnce);
@@ -190,19 +189,19 @@ namespace FunctionalTests.ApplicationCore.Services
             // Arrange
             double left = 0.5;
             double right = 0.5;
-            var logic = ProbabilityCalculationLogic.Either;
+            int logic = 2;
 
             // Act
-            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+            ICalculationResult result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
 
             // Assert
-            Assert.IsNotNull(result.LoggingObject);
-            Assert.IsNotNull(result.LoggingObject.Message);
-            Assert.AreEqual(left, result.LoggingObject.LeftInput);
-            Assert.AreEqual(right, result.LoggingObject.RightInput);
-            Assert.AreEqual((int)logic, result.LoggingObject.LogicId);
-            Assert.AreEqual(result.LoggingObject.Result, 0.75);
-            Assert.IsTrue(result.LoggingObject.TimeStamp != default(DateTime));
+            Assert.IsNotNull(result.CalculationLogging);
+            Assert.IsNotNull(result.CalculationLogging.Message);
+            Assert.AreEqual(left, result.CalculationLogging.LeftInput);
+            Assert.AreEqual(right, result.CalculationLogging.RightInput);
+            Assert.AreEqual((int)logic, result.CalculationLogging.LogicId);
+            Assert.AreEqual(result.CalculationLogging.Result, 0.75);
+            Assert.IsTrue(result.CalculationLogging.TimeStamp != default(DateTime));
         }
 
         [TestMethod]
@@ -212,10 +211,10 @@ namespace FunctionalTests.ApplicationCore.Services
             // Arrange
             double left = 0.1;
             double right = 1;
-            var logic = ProbabilityCalculationLogic.CombineWith;
+            int logic = 1;
 
             // Act
-            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+            ICalculationResult result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
 
             // Assert
         }
@@ -227,10 +226,10 @@ namespace FunctionalTests.ApplicationCore.Services
             // Arrange
             double left = 0;
             double right = 1.1;
-            var logic = ProbabilityCalculationLogic.CombineWith;
+            int logic = 1;
 
             // Act
-            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+            ICalculationResult result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
 
             // Assert
         }
@@ -242,10 +241,10 @@ namespace FunctionalTests.ApplicationCore.Services
             // Arrange
             double left = 1.1;
             double right = 10.1;
-            var logic = ProbabilityCalculationLogic.CombineWith;
+            int logic = 1;
 
             // Act
-            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+            ICalculationResult result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
 
             // Assert
         }
@@ -257,10 +256,10 @@ namespace FunctionalTests.ApplicationCore.Services
             // Arrange
             double left = 1;
             double right = 2;
-            var logic = (ProbabilityCalculationLogic)0;
+            int logic = 0;
 
             // Act
-            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+            ICalculationResult result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
 
             // Assert
         }
@@ -272,10 +271,10 @@ namespace FunctionalTests.ApplicationCore.Services
             // Arrange
             double left = -0.1;
             double right = 1.1;
-            var logic = (ProbabilityCalculationLogic)0;
+            int logic = 0;
 
             // Act
-            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+            ICalculationResult result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
 
             // Assert
         }
@@ -287,10 +286,10 @@ namespace FunctionalTests.ApplicationCore.Services
             // Arrange
             double left = 0;
             double right = 0;
-            var logic = (ProbabilityCalculationLogic)1;
+            int logic = 1;
 
             // Act
-            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+            ICalculationResult result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
 
             // Assert
         }
@@ -302,10 +301,10 @@ namespace FunctionalTests.ApplicationCore.Services
             // Arrange
             double left = 0;
             double right = 0;
-            var logic = (ProbabilityCalculationLogic)2;
+            int logic = 2;
 
             // Act
-            var result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
+            ICalculationResult result = _probabilityCalculationService.GetCalculationResult(left, right, logic);
 
             // Assert
         }
