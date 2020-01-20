@@ -45,5 +45,5 @@ Note:-
 Logging:-
 
 - App's logging file is available at the following location by default:-\
-`..\src\Web.API\bin\{ReleaseConfiguration}\netcoreapp2.1\Logs\`\
+`..\src\Web.API\bin\{ReleaseConfiguration}\netcoreapp2.1\Logs\`
 - Logging can be also viewed on the console while the app is running.
